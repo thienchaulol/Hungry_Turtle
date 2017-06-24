@@ -7,13 +7,18 @@ public class sprite_control : MonoBehaviour {
     public float fallSpeed;
     public float sinkSpeed;
     public float expirationTime;
+    public float ceilingVal; //height to drop food from
     bool sinking = false;
-    bool expired = false;
+    bool expired;
     public Transform floatingPoint;
+    private Vector2 initialPos;
 
-    void OnEnable()
+    void Start()
     {
-        //The food will appear in a puff of smoke above the water and fall
+        //Record initial position to reset after expiration
+        initialPos = new Vector2(Random.Range(-2f, 2f), ceilingVal);    //set initial(random) position of game object
+        gameObject.transform.position = initialPos; //store initial position of game object
+        //TODO: The food will appear in a puff of smoke above the water and fall
     }
 
     void Update()
@@ -24,9 +29,8 @@ public class sprite_control : MonoBehaviour {
         }
         if (gameObject.transform.position.y <= floatingPoint.position.y && !sinking)
         {
-            //Give the sprite a "floating" animation for 3 seconds
-            //After 3 seconds, the sprite will beging to sink
-            StartCoroutine(waitThreeSeconds());
+            //TODO: Give the sprite a "floating" animation for 3 seconds
+            StartCoroutine(waitThreeSeconds()); //After 3 seconds, the sprite will beging to sink
         }
         if (sinking && !expired)
         {
@@ -51,6 +55,10 @@ public class sprite_control : MonoBehaviour {
     {
         yield return new WaitForSeconds(X);
         expired = true;
+        initialPos = new Vector2(Random.Range(-2f, 2f), ceilingVal); //set new random initial position
+        transform.position = initialPos;	//set new random position
         sinking = false;
+        gameObject.SetActive(false);
+        //TODO: Food will crumble before it disappears
     }
 }
