@@ -45,6 +45,12 @@ public class sprite_control : MonoBehaviour {
         transform.Translate(Vector2.down * fallSpeed * Time.deltaTime);
     }
 
+    void OnMouseDown()
+    {
+        Refresh();
+        //TODO: Add to score when tapped.
+    }
+
     IEnumerator waitThreeSeconds()
     {
         yield return new WaitForSeconds(3);
@@ -54,11 +60,16 @@ public class sprite_control : MonoBehaviour {
     IEnumerator waitXSeconds(float X)
     {
         yield return new WaitForSeconds(X);
+        Refresh();
+        //TODO: Food will crumble before it disappears
+    }
+
+    void Refresh()
+    {
         expired = true;
         initialPos = new Vector2(Random.Range(-2f, 2f), ceilingVal); //set new random initial position
         transform.position = initialPos;	//set new random position
         sinking = false;
         gameObject.SetActive(false);
-        //TODO: Food will crumble before it disappears
     }
 }
