@@ -45,12 +45,6 @@ public class sprite_control : MonoBehaviour {
         transform.Translate(Vector2.down * fallSpeed * Time.deltaTime);
     }
 
-    void OnMouseDown()
-    {
-        Refresh();
-        //TODO: Add to score when tapped.
-    }
-
     IEnumerator waitThreeSeconds()
     {
         yield return new WaitForSeconds(3);
