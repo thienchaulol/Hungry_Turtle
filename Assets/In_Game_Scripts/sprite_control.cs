@@ -66,4 +66,9 @@ public class sprite_control : MonoBehaviour {
         sinking = false;
         gameObject.SetActive(false);
     }
+
+    void OnMouseDown()
+    {
+        Refresh();
+    }
 }
