@@ -5,15 +5,15 @@ using UnityEngine;
 public class sprite_control : MonoBehaviour {
 
     public game_manager game_manager;
-
+    public Transform floatingPoint;
+    private Vector2 initialPos;
+    
     public float fallSpeed;
     public float sinkSpeed;
     public float expirationTime;
     public float ceilingVal; //height to drop food from
     bool sinking = false;
     bool expired;
-    public Transform floatingPoint;
-    private Vector2 initialPos;
 
     void Start()
     {
@@ -74,6 +74,8 @@ public class sprite_control : MonoBehaviour {
         if(game_manager.paused == false)
         {
             //TODO: Add to score.
+            game_manager.score++;
+            Debug.Log(game_manager.score);
             Refresh();
         }
     }
