@@ -5,11 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class game_manager : MonoBehaviour {
 
-    bool paused = false;
+    public bool paused = false;
 
 	void Update () {
 		
 	}
+
+    public void pause_button()
+    {
+        if(paused == false)
+        {
+            paused = true;
+            Time.timeScale = 0;
+            Debug.Log("paused");
+        }
+        else if(paused == true)
+        {
+            paused = false;
+            Time.timeScale = 1;
+            Debug.Log("unpaused");
+        }
+    }
 
     public void play_button()
     {
@@ -24,12 +40,5 @@ public class game_manager : MonoBehaviour {
     public void menu_button()
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Single);
-    }
-
-    public void pause_button()
-    {
-        //If paused is true, pause the game.
-        paused = !paused;
-        Debug.Log(paused);
     }
 }

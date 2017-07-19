@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class sprite_control : MonoBehaviour {
 
+    public game_manager game_manager;
+
     public float fallSpeed;
     public float sinkSpeed;
     public float expirationTime;
@@ -69,6 +71,10 @@ public class sprite_control : MonoBehaviour {
 
     void OnMouseDown()
     {
-        Refresh();
+        if(game_manager.paused == false)
+        {
+            //TODO: Add to score.
+            Refresh();
+        }
     }
 }
