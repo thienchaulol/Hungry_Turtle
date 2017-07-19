@@ -10,7 +10,8 @@ public class sprite_control : MonoBehaviour {
     
     public float fallSpeed;
     public float sinkSpeed;
-    public float expirationTime;
+    public float expirationTimeInWater;
+    public float timeBeforeSink;
     public float ceilingVal; //height to drop food from
     bool sinking = false;
     bool expired;
@@ -20,7 +21,7 @@ public class sprite_control : MonoBehaviour {
         //Record initial position to reset after expiration
         initialPos = new Vector2(Random.Range(-2f, 2f), ceilingVal);    //set initial(random) position of game object
         gameObject.transform.position = initialPos; //store initial position of game object
-        //TODO: The food will appear in a puff of smoke above the water and fall
+        //TODO(Animation): The food will appear in a puff of smoke above the water and fall
     }
 
     void Update()
@@ -31,14 +32,14 @@ public class sprite_control : MonoBehaviour {
         }
         if (gameObject.transform.position.y <= floatingPoint.position.y && !sinking)
         {
-            //TODO: Give the sprite a "floating" animation for 3 seconds
-            StartCoroutine(waitThreeSeconds()); //After 3 seconds, the sprite will beging to sink
+            //TODO(Animation): Give the sprite a "floating" animation for Z seconds
+            StartCoroutine(waitYSeconds(timeBeforeSink)); //After Y seconds, the sprite will begin to sink
         }
         if (sinking && !expired)
         {
             transform.Translate(Vector2.down * sinkSpeed * Time.deltaTime);
-            //After X amount of time, have the food expire and make the tank dirty
-            StartCoroutine(waitXSeconds(expirationTime));
+            //TODO(Animation): After X amount of time, have the food expire and make the tank dirty
+            StartCoroutine(waitXSeconds(expirationTimeInWater));
         }
     }
 
@@ -47,9 +48,9 @@ public class sprite_control : MonoBehaviour {
         transform.Translate(Vector2.down * fallSpeed * Time.deltaTime);
     }
 
-    IEnumerator waitThreeSeconds()
+    IEnumerator waitYSeconds(float y)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(y);
         sinking = true;
     }
 
@@ -57,7 +58,7 @@ public class sprite_control : MonoBehaviour {
     {
         yield return new WaitForSeconds(X);
         Refresh();
-        //TODO: Food will crumble before it disappears
+        //TODO(Animation): Food will crumble before it disappears
     }
 
     void Refresh()
@@ -73,9 +74,7 @@ public class sprite_control : MonoBehaviour {
     {
         if(game_manager.paused == false)
         {
-            //TODO: Add to score.
             game_manager.score++;
-            Debug.Log(game_manager.score);
             Refresh();
         }
     }

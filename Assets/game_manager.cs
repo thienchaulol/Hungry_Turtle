@@ -18,13 +18,11 @@ public class game_manager : MonoBehaviour {
         {
             paused = true;
             Time.timeScale = 0;
-            Debug.Log("paused");
         }
         else if(paused == true)
         {
             paused = false;
             Time.timeScale = 1;
-            Debug.Log("unpaused");
         }
     }
 
