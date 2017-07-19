@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class game_manager : MonoBehaviour {
 
     public bool paused = false;
-    public int score;
+    public static int score;
 
 	void Update () {
 		

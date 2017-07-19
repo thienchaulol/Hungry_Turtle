@@ -79,10 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\game_manager.cs" />
+    <Compile Include="Assets\In_Game_Scripts\ingame_score.cs" />
     <Compile Include="Assets\In_Game_Scripts\object_pool_control.cs" />
     <Compile Include="Assets\In_Game_Scripts\object_pooler.cs" />
     <Compile Include="Assets\In_Game_Scripts\sprite_control.cs" />
-    <Compile Include="Assets\ingame_score.cs" />
+    <Compile Include="Assets\Rewards_Scripts\rewards_points.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
