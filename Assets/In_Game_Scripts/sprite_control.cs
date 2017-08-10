@@ -9,9 +9,9 @@ public class sprite_control : MonoBehaviour {
     private Vector2 initialPos;
     
     public float fallSpeed;
+    public float timeBeforeSink;
     public float sinkSpeed;
     public float expirationTimeInWater;
-    public float timeBeforeSink;
     public float ceilingVal; //height to drop food from
     bool sinking = false;
     bool expired = false;

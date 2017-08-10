@@ -7,16 +7,33 @@ public class game_manager : MonoBehaviour {
 
     public bool paused = false;
     public static int score;
+    //At score 25, 50, 100, 200, 400, ..., have the fallSpeed, sinkSpeed increase by 25% and timeBeforeSink, expirationTimeInWater decrease by 25%.
+    //Also, spawnTime will decrease with score. (Game will speed up)
+    //Need to set variable (25), and whenever the score is twice the variable modify sprite variables and set new variable(25*2..)
+    public static float valueToModifyVars;
+    public sprite_control foodVars;
+    public object_pool_control spawnTimeVar;
     public UnityEngine.UI.Image pause_image;
 
     void Start()
     {
+        valueToModifyVars = (float) 12.5;
         pause_image.enabled = false;
     }
 
 	void Update () {
-		
-	}
+        /*TODO: Find out how to detect when score has doubled and modify foodVars*/
+        if(score == valueToModifyVars * 2)
+        {
+            //1.25 is a "double" whereas fallSpeed is a "float". Doubles take up more memory than floats.
+            foodVars.fallSpeed *= (float) 1.25;
+            foodVars.sinkSpeed *= (float) 1.25;
+            foodVars.timeBeforeSink *= (float) .75;
+            foodVars.expirationTimeInWater *= (float) .75;
+            spawnTimeVar.spawnTime *= (float) .4;
+            valueToModifyVars = score;
+        }
+    }
 
     public void pause_button()
     {
