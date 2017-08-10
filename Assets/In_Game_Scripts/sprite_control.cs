@@ -58,6 +58,7 @@ public class sprite_control : MonoBehaviour {
     IEnumerator waitXSeconds(float X)
     {
         yield return new WaitForSeconds(X);
+        game_manager.missedFood();
         Refresh();
         //TODO(Animation): Food will crumble before it disappears
     }

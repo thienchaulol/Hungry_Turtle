@@ -13,16 +13,21 @@ public class game_manager : MonoBehaviour {
     public static float valueToModifyVars;
     public sprite_control foodVars;
     public object_pool_control spawnTimeVar;
+    public UnityEngine.UI.Button pause_buttn;
+    public Sprite play_img;
+    public Sprite pause_img;
     public UnityEngine.UI.Image pause_image;
+    public int totalMissedFood;
 
     void Start()
     {
+        totalMissedFood = 0;
         valueToModifyVars = (float) 12.5;
         pause_image.enabled = false;
     }
 
 	void Update () {
-        /*TODO: Find out how to detect when score has doubled and modify foodVars*/
+        /*TODO: Game is lost when totalMissedFood == 3.*/
         if(score == valueToModifyVars * 2)
         {
             //1.25 is a "double" whereas fallSpeed is a "float". Doubles take up more memory than floats.
@@ -35,18 +40,25 @@ public class game_manager : MonoBehaviour {
         }
     }
 
+    public void missedFood()
+    {
+        totalMissedFood++;
+    }
+
     public void pause_button()
     {
         if(paused == false)
         {
             paused = true;
             pause_image.enabled = true;
+            pause_buttn.image.overrideSprite = play_img;
             Time.timeScale = 0;
         }
         else if(paused == true)
         {
             paused = false;
             pause_image.enabled = false;
+            pause_buttn.image.overrideSprite = pause_img;
             Time.timeScale = 1;
         }
     }
