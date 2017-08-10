@@ -7,6 +7,12 @@ public class game_manager : MonoBehaviour {
 
     public bool paused = false;
     public static int score;
+    public UnityEngine.UI.Image pause_image;
+
+    void Start()
+    {
+        pause_image.enabled = false;
+    }
 
 	void Update () {
 		
@@ -17,11 +23,13 @@ public class game_manager : MonoBehaviour {
         if(paused == false)
         {
             paused = true;
+            pause_image.enabled = true;
             Time.timeScale = 0;
         }
         else if(paused == true)
         {
             paused = false;
+            pause_image.enabled = false;
             Time.timeScale = 1;
         }
     }
