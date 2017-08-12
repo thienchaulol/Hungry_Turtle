@@ -4,20 +4,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class game_manager : MonoBehaviour {
-
-    public bool paused = false;
+ 
     public static int score;
+    public int totalMissedFood;
+
     //At score 25, 50, 100, 200, 400, ..., have the fallSpeed, sinkSpeed increase by 25% and timeBeforeSink, expirationTimeInWater decrease by 25%.
     //Also, spawnTime will decrease with score. (Game will speed up)
     //Need to set variable (25), and whenever the score is twice the variable modify sprite variables and set new variable(25*2..)
     public static float valueToModifyVars;
     public sprite_control foodVars;
     public object_pool_control spawnTimeVar;
+
+    public bool paused = false;
     public UnityEngine.UI.Button pause_buttn;
+    public UnityEngine.UI.Image pause_image;
     public Sprite play_img;
     public Sprite pause_img;
-    public UnityEngine.UI.Image pause_image;
-    public int totalMissedFood;
 
     void Start()
     {
@@ -27,8 +29,12 @@ public class game_manager : MonoBehaviour {
     }
 
 	void Update () {
-        /*TODO: Game is lost when totalMissedFood == 3.*/
-        if(score == valueToModifyVars * 2)
+        if(totalMissedFood == 3)
+        {
+            /*TODO: Game is lost when totalMissedFood == 3.*/
+            /*Show end game screen, have option to play again or return to menu*/
+        }
+        if (score == valueToModifyVars * 2)
         {
             //1.25 is a "double" whereas fallSpeed is a "float". Doubles take up more memory than floats.
             foodVars.fallSpeed *= (float) 1.25;

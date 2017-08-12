@@ -5,16 +5,25 @@ using UnityEngine;
 public class sprite_control : MonoBehaviour {
 
     public game_manager game_manager;
+    public UnityEngine.UI.Image turtle;
     public Transform floatingPoint;
     private Vector2 initialPos;
+    private Vector3 initialTurtlePos;
     
     public float fallSpeed;
     public float timeBeforeSink;
     public float sinkSpeed;
     public float expirationTimeInWater;
     public float ceilingVal; //height to drop food from
+    public float turtleSpeed;
     bool sinking = false;
     bool expired = false;
+    public bool eatFood = false;
+
+    void Awake()
+    {
+        gameObject.GetComponent<Renderer>().enabled = true;
+    }
 
     void Start()
     {
@@ -22,6 +31,7 @@ public class sprite_control : MonoBehaviour {
         initialPos = new Vector2(Random.Range(-2f, 2f), ceilingVal); //set initial(random) position of game object
         gameObject.transform.position = initialPos; //store initial position of game object
         //TODO(Animation): The food will appear in a puff of smoke above the water and fall
+        initialTurtlePos = turtle.transform.position;
     }
 
     void Update()
@@ -40,6 +50,18 @@ public class sprite_control : MonoBehaviour {
             transform.Translate(Vector2.down * sinkSpeed * Time.deltaTime);
             //TODO(Animation): After X amount of time, have the food expire and make the tank dirty
             StartCoroutine(waitXSeconds(expirationTimeInWater));
+        }
+        if (eatFood && (gameObject.transform.position.y <= floatingPoint.position.y))
+        {
+            turtle.transform.position = Vector2.MoveTowards(turtle.transform.position, gameObject.transform.position, turtleSpeed * Time.deltaTime);
+            if (turtle.transform.position == gameObject.transform.position)
+            {
+                game_manager.score++;
+                eatFood = false;
+                Refresh();
+                //TODO: Return turtle to original position after consuming food
+                //turtle.transform.position = Vector2.MoveTowards(turtle.transform.position, initialTurtlePos, turtleSpeed * Time.deltaTime);
+            }
         }
     }
 
@@ -76,8 +98,7 @@ public class sprite_control : MonoBehaviour {
     {
         if(game_manager.paused == false && !(gameObject.transform.position.y > floatingPoint.position.y))
         {
-            game_manager.score++;
-            Refresh();
+            eatFood = true;
         }
     }
 }
