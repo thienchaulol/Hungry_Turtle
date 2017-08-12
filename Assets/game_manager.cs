@@ -25,7 +25,10 @@ public class game_manager : MonoBehaviour {
     {
         totalMissedFood = 0;
         valueToModifyVars = (float) 12.5;
-        pause_image.enabled = false;
+        if (SceneManager.GetActiveScene().name == "In_Game")
+        {
+            pause_image.enabled = false;
+        }
     }
 
 	void Update () {

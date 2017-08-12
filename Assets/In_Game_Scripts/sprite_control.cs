@@ -51,8 +51,9 @@ public class sprite_control : MonoBehaviour {
             //TODO(Animation): After X amount of time, have the food expire and make the tank dirty
             StartCoroutine(waitXSeconds(expirationTimeInWater));
         }
-        if (eatFood && (gameObject.transform.position.y <= floatingPoint.position.y))
+        if ((gameObject.transform.position.y <= floatingPoint.position.y) && eatFood)
         {
+            //TODO: BUG: If the turtle is travelling to a clone before the clone disappears the turtle will travel to the same clone when it reappears
             turtle.transform.position = Vector2.MoveTowards(turtle.transform.position, gameObject.transform.position, turtleSpeed * Time.deltaTime);
             if (turtle.transform.position == gameObject.transform.position)
             {
@@ -61,6 +62,11 @@ public class sprite_control : MonoBehaviour {
                 Refresh();
                 //TODO: Return turtle to original position after consuming food
                 //turtle.transform.position = Vector2.MoveTowards(turtle.transform.position, initialTurtlePos, turtleSpeed * Time.deltaTime);
+            }
+            if (!gameObject.activeSelf)
+            {
+                eatFood = false;
+                Refresh();
             }
         }
     }
@@ -71,9 +77,9 @@ public class sprite_control : MonoBehaviour {
         transform.Translate(Vector2.down * fallSpeed * Time.deltaTime);
     }
 
-    IEnumerator waitYSeconds(float y)
+    IEnumerator waitYSeconds(float Y)
     {
-        yield return new WaitForSeconds(y);
+        yield return new WaitForSeconds(Y);
         sinking = true;
     }
 
