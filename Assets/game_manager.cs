@@ -21,8 +21,11 @@ public class game_manager : MonoBehaviour {
     public Sprite play_img;
     public Sprite pause_img;
 
+    public GameObject gameOverButtons;
+
     void Start()
     {
+        gameOverButtons.SetActive(false);
         totalMissedFood = 0;
         valueToModifyVars = (float) 12.5;
         if (SceneManager.GetActiveScene().name == "In_Game")
@@ -36,6 +39,8 @@ public class game_manager : MonoBehaviour {
         {
             /*TODO: Game is lost when totalMissedFood == 3.*/
             /*Show end game screen, have option to play again or return to menu*/
+            gameOverButtons.SetActive(true);
+            Time.timeScale = 0;
         }
         if (score == valueToModifyVars * 2)
         {
