@@ -22,6 +22,7 @@ public class game_manager : MonoBehaviour {
     public Sprite pause_img;
 
     public GameObject gameOverButtons;
+    public object_pooler object_pool;
 
     void Start()
     {
@@ -41,6 +42,10 @@ public class game_manager : MonoBehaviour {
             /*Show end game screen, have option to play again or return to menu*/
             gameOverButtons.SetActive(true);
             Time.timeScale = 0;
+            for(int i = 0; i < object_pool.pooledObjects.Count ; i++)
+            {
+                object_pool.pooledObjects[i].SetActive(false);
+            }
         }
         if (score == valueToModifyVars * 2)
         {
