@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class game_manager : MonoBehaviour {
- 
-    public static int score;
+
+    public int score;
+    public static int totalScore;
     public int totalMissedFood;
 
     //At score 25, 50, 100, 200, 400, ..., have the fallSpeed, sinkSpeed increase by 25% and timeBeforeSink, expirationTimeInWater decrease by 25%.
@@ -26,23 +27,22 @@ public class game_manager : MonoBehaviour {
 
     void Start()
     {
-        gameOverButtons.SetActive(false);
         totalMissedFood = 0;
-        valueToModifyVars = (float) 12.5;
+        valueToModifyVars = (float)12.5;
         if (SceneManager.GetActiveScene().name == "In_Game")
         {
+            gameOverButtons.SetActive(false);
             pause_image.enabled = false;
         }
     }
 
-	void Update () {
-        if(totalMissedFood == 3)
+    void Update() {
+        if (totalMissedFood >= 3)
         {
-            /*TODO: Game is lost when totalMissedFood == 3.*/
-            /*Show end game screen, have option to play again or return to menu*/
+            totalScore += score;
             gameOverButtons.SetActive(true);
             Time.timeScale = 0;
-            for(int i = 0; i < object_pool.pooledObjects.Count ; i++)
+            for (int i = 0; i < object_pool.pooledObjects.Count; i++)
             {
                 object_pool.pooledObjects[i].SetActive(false);
             }
@@ -50,11 +50,12 @@ public class game_manager : MonoBehaviour {
         if (score == valueToModifyVars * 2)
         {
             //1.25 is a "double" whereas fallSpeed is a "float". Doubles take up more memory than floats.
-            foodVars.fallSpeed *= (float) 1.25;
-            foodVars.sinkSpeed *= (float) 1.25;
-            foodVars.timeBeforeSink *= (float) .75;
-            foodVars.expirationTimeInWater *= (float) .75;
-            spawnTimeVar.spawnTime *= (float) .4;
+            //TODO: Create more well thought out checkpoints in the game as score increases.
+            foodVars.fallSpeed *= (float)1.25;
+            foodVars.sinkSpeed *= (float)1.25;
+            foodVars.timeBeforeSink *= (float).75;
+            foodVars.expirationTimeInWater *= (float).75;
+            spawnTimeVar.spawnTime *= (float).4;
             valueToModifyVars = score;
         }
     }
@@ -66,14 +67,14 @@ public class game_manager : MonoBehaviour {
 
     public void pause_button()
     {
-        if(paused == false)
+        if (paused == false)
         {
             paused = true;
             pause_image.enabled = true;
             pause_buttn.image.overrideSprite = play_img;
             Time.timeScale = 0;
         }
-        else if(paused == true)
+        else if (paused == true)
         {
             paused = false;
             pause_image.enabled = false;
@@ -82,8 +83,29 @@ public class game_manager : MonoBehaviour {
         }
     }
 
+    public void timeScale1()
+    {
+        Time.timeScale = 1;
+    }
+
+    public void play_again_button()
+    {
+        score = 0;
+        totalMissedFood = 0;
+        gameOverButtons.SetActive(false);
+        Time.timeScale = 1;
+        for (int i = 0; i < object_pool.pooledObjects.Count; i++)
+        {
+            object_pool.pooledObjects[i].SetActive(true);
+        }
+        Debug.Log("No Error");
+    }
+
     public void play_button()
     {
+        score = 0;
+        totalMissedFood = 0;
+        timeScale1();
         SceneManager.LoadScene("In_Game", LoadSceneMode.Single);
     }
 

@@ -13,6 +13,6 @@ public class rewards_points : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        points_display.text = ("Points: " + game_manager.score.ToString());
+        points_display.text = ("Points: " + game_manager.totalScore.ToString());
     }
 }
