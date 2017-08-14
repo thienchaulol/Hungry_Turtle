@@ -7,6 +7,7 @@ public class object_pooler : MonoBehaviour {
     public GameObject pooledObject; //gameobject used to pool objects
     public int pooledAmount;    //initial number of pooled objects
     public List<GameObject> pooledObjects; //list of pooled objects
+    public sprite_control sprite_control;
 
     void Start()
     {

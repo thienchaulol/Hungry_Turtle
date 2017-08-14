@@ -5,7 +5,7 @@ using UnityEngine;
 public class play_again : MonoBehaviour {
 
     public game_manager game_manager_var;
-    public object_pool_control object_pool_control;
+    public object_pool_control object_pool_control_var;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +23,11 @@ public class play_again : MonoBehaviour {
         game_manager_var.totalMissedFood = 0;
         game_manager_var.gameOverButtons.SetActive(false);
         game_manager_var.timeScale1();
-        //TODO: Reset object_pool_control.cs to refresh all food clones.
+        //TODO: Refresh all food clones.
+        for(int i = 0; i < object_pool_control_var.theObjectPool.pooledObjects.Count; i++) //Genius for figuring out how to travel to Refresh() call.
+        {
+            object_pool_control_var.theObjectPool.pooledObjects[i].GetComponent<sprite_control>().Refresh(); //Or idiot for creating too many scripts.
+        }
+
     }
 }

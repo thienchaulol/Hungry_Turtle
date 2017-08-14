@@ -94,7 +94,7 @@ public class sprite_control : MonoBehaviour {
         //TODO(Animation): Food will crumble before it disappears
     }
 
-    void Refresh()
+    public void Refresh()
     {
         initialPos = new Vector2(Random.Range(-2f, 2f), ceilingVal); //set new random initial position
         transform.position = initialPos;	//set new random position
